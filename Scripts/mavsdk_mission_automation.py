@@ -1,6 +1,7 @@
 ######
 #Date: 09.12.2022
 ##Version Log:
+#Version v2
 #-2 Nested For-Loop (iterating through scenarios & multiple runs)
 #-Linux Bash script no longer used to boot PX4
 #-World Files on VM used to set up Wind Scenarios
