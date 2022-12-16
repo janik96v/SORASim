@@ -73,8 +73,8 @@ async def run(flight_plan,log_file):
     await drone.core.set_mavlink_timeout(2.0)
     
     ## Clears Geofence Areas on the Drone
-    # await drone.geofence.clear_geofence()
-    # await drone.mission.clear_mission()
+    await drone.geofence.clear_geofence()
+    await drone.mission.clear_mission()
     print("Old Geofence cleared.")
 
     ## Setting PX4 Parameters        
@@ -129,8 +129,8 @@ async def run(flight_plan,log_file):
 
     ## Uploads the mission_plan as an offboard controll to PX4.
     print("-- Uploading mission")
-    # await drone.mission.upload_mission(mission_plan)
-    drone.mission.set_current_mission_item(0)
+    await drone.mission.upload_mission(mission_plan)
+    # drone.mission.set_current_mission_item(0)
 
     ## Calls a coroutine until GPS Lock is successful
     print("Waiting for drone to have a global position estimate...")
@@ -147,7 +147,7 @@ async def run(flight_plan,log_file):
 
     # Upload the geofence to your vehicle
     print("Uploading geofence...")
-    # await drone.geofence.upload_geofence([polygon])
+    await drone.geofence.upload_geofence([polygon])
     print("Geofence uploaded!")
 
     ## Starts kill switch procedure as parallel coroutine
