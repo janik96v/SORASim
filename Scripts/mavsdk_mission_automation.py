@@ -50,7 +50,7 @@ for i in range(0,len(world),1):
         #---------------------------------------------------------------------------------------------------------------------
 
         ## Run Mission Script
-        flight_plan = 'Flight_Plan_Location3.xlsx'
+        flight_plan = 'Flight_Plan_SORAMission_R3_I1.xlsx'
 
         log_file = world[i]+'_Run_'+str(j)
 
