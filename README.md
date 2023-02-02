@@ -7,13 +7,17 @@ The high-fidelity UAV simulation is based on open-source software and uses the G
 
 ## Repository Structure
 
-- Experiment: Contain all the scripts for flying the mission and analysing the results of the contingency volume and ground risk buffer validation
-- Flight_Plans: 
+- Experiment: Contains all the scripts for flying the mission and analysing the results of the contingency volume and ground risk buffer validation
+- Flight_Plans: Includes the waypoints of the UAV mission for the use case as well as the geofence for the contingency volume and ground risk buffer
+- Installation: Includes documentation on how to install and change parts of the simulator
+- Scripts: Contains the offboard mission script to fly the UAV operation according to the SORA and its permit to fly
+- Simulation_Verification: Includes the offboard mission script, the flight logs from flight test and simulation, the changes to the UAV model to mimic the UAV from the flight test and the analysis of the results
+
 
 ## Further Material/Documentation/Links
 
 - [PX4 Autopilot](https://docs.px4.io/main/en/)
 - [QGroundControl](http://qgroundcontrol.com/)
 - [AirSim](https://microsoft.github.io/AirSim/)
-- [Gazebo](https://docs.px4.io/main/en/simulation/gazebo.html) or the Website of [Gazebo Simulator](https://gazebosim.org/home)
+- [Gazebo/PX4](https://docs.px4.io/main/en/simulation/gazebo.html) or the Website of [Gazebo Simulator](https://gazebosim.org/home)
 - [MAVSDK](https://mavsdk.mavlink.io/main/en/)
