@@ -1,0 +1,5 @@
+#Experiment
+
+The experiments are flown according to the design of experiment and contain the validation of the contingency volume and ground risk buffer. The goal of the experiments is to validate the size of the volumes under different operational conditions. Thus, the results from the simulation are used to show if the volumes meet the requirements derived from the regulation in different flight phases. 
+
+Both of the two folders contain the same structure of sub folders.  They contain the adjusted mission and automation script to fly the UAV mission under the given operatinal conditions and the corresponding waypoints of the flight plan as well as the vertices of the contingency volume and ground risk buffer. The results from the simulation are saved as flight log files in the corresponding folder, which is the input for the Python scripts and the subsequent analysis in the "Analysis" folder .

@@ -14,7 +14,7 @@ The high-fidelity UAV simulation is based on open-source software and uses the G
 - **Simulation_Verification**: Includes the offboard mission script, the flight logs from flight test and simulation, the changes to the UAV model to mimic the UAV from the flight test and the analysis of the results
 
 
-## Further Material/Documentation/Links
+## Further Material / Documentation / Links
 
 - [PX4 Autopilot](https://docs.px4.io/main/en/)
 - [QGroundControl](http://qgroundcontrol.com/)
