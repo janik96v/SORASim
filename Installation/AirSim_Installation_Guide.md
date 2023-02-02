@@ -24,78 +24,51 @@ The installation guide is intended to add information to AirSim's [official docu
 
 > **NOTE:** If the command can not found Git, it must be installed first with the following link: [http://git-scm.com/download/win](http://git-scm.com/download/win)
 
+9. After successfully downloading the AirSim files, change to the AirSim folder `cd AirSim`
+10. Install them by type in `build.cmd`. It will create a folder which can then be added to the existing Unreal project
+    - Copy the folder `AirSim\Unreal\Plugins` into the main directory of your Unreal project
+11. Restart Visual Studio 2022 and open the file 'xxxx.uproject' which is in the folder of your Unreal project.
+12. Copy the following [code](https://microsoft.github.io/AirSim/unreal_custenv/) to the end of the file you just opened
 
-
-
-
-- Nach erfolgreichem Download der AirSim Dateien wechsel in den AirSim Ordner (cd AirSim)
-- Installation durch build.cmd. Dadurch wird ein Plugin Ordner erstellt, welcher danach ins bestehende Unreal Projekt eingefügt werden kann.
-- Der erstellte Ordner unter AirSim\Unreal\Plugins in das Hauptverzeichnis des neu erstellten Unreal Projekts kopieren
-- Neustar von Visual Studio 2022 und öffnen der Datei xxxx.uproject im Ordner des neu erstellten Unreal Projekt.
-- Kopieren des folgenden Codes an das Ende der soeben geöffneten Datei: Der ganze Code kann unter [https://microsoft.github.io/AirSim/unreal\_custenv/](https://microsoft.github.io/AirSim/unreal_custenv/) gefunden werden.
-
-,
-
+```
 "AdditionalDependencies": [
-
-"AirSim"
-
+    "AirSim"
 ]
-
-}
-
-],
-
-"TargetPlatforms": [
-
-"MacNoEditor",
-
-"WindowsNoEditor"
-
-],
-
 "Plugins": [
-
-{
-
-"Name": "AirSim",
-
-"Enabled": true
-
-}
-
+    {
+        "Name": "AirSim",
+        "Enabled": true
+    }
 ]
+```
 
-}
+13. Open the created Unreal project with the Unreal Editor select `File>Refresh Visual Studio Projects` to apply the changes and open Visual Studio
+14. Open the settings inside the Unreal Editor through `Window>World Settings` and change the Game Mode to **AirSimGameMode**.
+15. Search in the search bar of the *World Outliner* settings for *Player Start Position* and delete all available start positions except for one
+16. Move the launch position close to the ground and start the simulation through *Play* . If a UAV appears on screen, the installation was successful!
+17. In the Unreal Editor go to `Edit>Editor Preferences` and serach for *CPU* and disable *Use Less CPU when in Background*
 
-- Öffnen des Unreal Editors und des erstellten Projekts im Editor und File\Refresh Visual Studio Projects wählen um danach Visual Studio mit den gemachten Änderungen zu öffnen.
-- Öffnen der Einstellungen unter Window\World Settings umso den Game Mode auf AirSimGameMode zu wechseln
-- Suchen im World Outliner Suchfeld nach Player Startposition, um alle Startpositionen bis auf eine zu löschen.
-- Die Startposition nahe an den Boden bringen und die Simulation mit Play starten. Falls die Drohne erscheint, hat die Installation funktioniert.
-- Im Unreal Editor unter «Edit  Editor Preferences" öffnen und "CPU" im der Suche eingeben. Den Hacken bei «Use Less CPU when in Background» entfernen.
 
-**WICHTIG:**
+## AirSim under Linux
+> **NOTE:** If AirSim is installed in Linux (Ubuntu 18.04), use the following commands. You can find them on the AirSim Github page.
 
-- Falls AirSim in Linux (Ubuntu 18.04) installiert wird, werden dabei die folgenden Befehle benötigt. Zu finden sind diese unter der AirSim Github Page.
-
+```
 git clone https://github.com/Microsoft/AirSim.git
-
 cd AirSim
  ./setup.sh
  ./build.sh
+```
 
-Falls der ./build.sh Befehl einen Fehler auswirft, muss versucht werden mit folgendem Befehl nötige Dependencies/Packages zu installieren. Dies sollte eigentlich bereits durch ./setup.sh geschehen, passierte da aber nicht. Der zusätzlich auszuführende Befehl ist der folgende:
+- If `./build.sh` gives an error, try to install the following `sudo apt-get install libstdc++-8-dev`
+- If AirSim is installed on Linux and used in combination with Gazebo, the following code must be executed
 
+```
 sudo apt-get install libstdc++-8-dev
+./clean.sh
+./setup.sh
+./build.sh –gcc
+```
+ 
+- If the necessary compiler is not yet installed `./build.sh -gcc` will produce an error. Install the compiler with `sudo apt-get install gcc-8 g++-8`
 
-- Falls AirSim für GazeboDrone installiert wird, müssen gemäss Github Page die folgenden Befehle ausgeführt werden:
 
-sudo apt-get install libgazebo9-dev.
- ./ **clean**.sh
-./ **setup**.sh
-
-./ **build**.sh **–gcc**
-
-Wenn der ./build.sh Befehl aufgrund des fehlenden Compilers abgebrochen wird mit dem nachfolgenden Befehl den nötigen Compiler installieren:
-
-sudo apt-get install gcc-8 g++-8
