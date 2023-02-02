@@ -1,4 +1,4 @@
-# AirSim Installation Guide
+# AirSim Installation Guide (Windows)
 
 The installation guide is intended to add information to AirSim's [official documenetation](https://microsoft.github.io/AirSim/build_windows/) and the [installation video](https://www.youtube.com/watch?v=1oY8Qu5maQQ&ab_channel=ChrisLovett) of Chris Lovett. This file contains certain details that were not included in either of the other two sources. 
 
@@ -50,7 +50,7 @@ The installation guide is intended to add information to AirSim's [official docu
 
 
 ## AirSim under Linux
-> **NOTE:** If AirSim is installed in Linux (Ubuntu 18.04), use the following commands. You can find them on the AirSim Github page.
+> **NOTE:** If AirSim is installed in Linux (Ubuntu 18.04) follow the steps in this section. Use it as additional information to the [AirSim Github page](https://microsoft.github.io/AirSim/build_linux/). Instructions on how to build the Unreal environment is also available under the same webpage. 
 
 ```
 git clone https://github.com/Microsoft/AirSim.git
