@@ -1,25 +1,32 @@
-**AirSim Installationsanleitung:**
+# AirSim Installation Guide
 
-Die Installationnsanleitung soll als Ergänzung zur Anleitung auf [https://microsoft.github.io/AirSim/build\_windows/](https://microsoft.github.io/AirSim/build_windows/) und zum Video auf [https://www.youtube.com/watch?v=1oY8Qu5maQQ&ab\_channel=ChrisLovett](https://www.youtube.com/watch?v=1oY8Qu5maQQ&ab_channel=ChrisLovett) sie enthält gewisse Details, welche in keinem der beiden anderen Anleitungen enthalten waren.
+The installation guide is intended to add information to AirSim's [official documenetation](https://microsoft.github.io/AirSim/build_windows/) and the [installation video](https://www.youtube.com/watch?v=1oY8Qu5maQQ&ab_channel=ChrisLovett) of Chris Lovett. This file contains certain details that were not included in either of the other two sources. 
 
-- Download Unreal Launcher und Installation von Unreal Engine \>= 4.25
-- Installation Microsoft Visual Studio 2022 und 2019. Installation der folgenden Pakete:
+1. Download Unreal Launcher and install Unreal Engine \>= 4.25
+2. Install Microsoft Visual Studio 2019 and 2022 and the following packages:
   - Desktop Development with C++
   - Windows 10 SDK 10.0.18362
-  - neuste .NET Framework SDK
+  - Newest .NET Framework SDK
 
-HINWEIS: Visual Studio 2019 wird nur für die Installation von AirSim verwendet, das Unreal Projekt kann nur mit Visual Studio 2022 geöffnet werden.
+> **NOTE:** Visual Studio 2019 is only required to install AirSim (v1.7.0). To set up the Unreal project the newer version of Visual Studio was needed as with the version of 2019 several issues where experienced. According to the [AirSim's repository](https://github.com/microsoft/AirSim) newer version should also support VS 2022
 
-- Erstellen eines Unreal Projekts und download einer passenden Unreal World (e.g Landscape Mountains). Für die Erstellung eines korrekt Projekts muss aus der New Project Categories Games ausgewählt werden. Danach muss ein Blank Project gewählt werden und die Option von Blueprint auf C++ geändert werden. Den Rest der Einstellungen muss beibehalten werden. Der Speicherort und der Projektname kann vor der Erstellung geändert werden.
-- Die heruntergeladene Welt und das erstellte Projekt müssen nun gemerged werden.
-  - Kopieren des Ordners Maps und Assets im Content Ordner des Landscape Mountains Projekts in den Content Ordner des neuen Unreal Projekts
-  - Kopieren des Ordners DerivedDataCache vom Landscape Mountain Projekts in den Content Ordner des neuen Unreal Projekts
-  - Inhalt der DefaultEngine.ini Datei im Config Ordner des Landscape Mountains Projekts muss dem gleichnamigen File im neuen Unreal Projekt angefügt werden. Neuer Inhalt nur ergänzen und nicht den bestehenden Inhalt im neuen Unreal Projekt überschreiben
-- Installation von AirSim durch öffnen der Developer Command Prompt for Visual Studio 2022
-- Wechsel des Directory auf einen Ordner nicht welcher nicht im Directory C: liegt, sonst fehlen die Berechtigungen die AirSim Dateien herunterzuladen und Visual Studio muss mit Admin Rechten ausgeführt werden
-- Ausführen des Befehls git clone https://github.com/Microsoft/AirSim.git.
 
-WICHTIG: Falls der Befehl git nicht gefunden werden kann, muss git zuerst über den folgenden Link installiert werden [http://git-scm.com/download/win](http://git-scm.com/download/win)
+3. Create an Unreal project and download a suitable Unreal World (e.g. Landscape Mountains) from the Unreal Editor or from the **Assets** list of the corresponding release on the [AirSim repository](https://github.com/microsoft/AirSim/releases/tag/v1.8.1-windows).
+4. To create the Unreal project correctly select: "New Project Categories>Games>Blank Projec>" then change the option Blueprint to C++ keep the rest of the settings as default and change the location and name of the project. 
+5 .Merge the downloaded world environment with the created project: 
+  - Copy the folder "Maps" and "Assets" from the "Content" folder of the downloaded Unreal World (e.g. Landscape Mountains) to the "Content" folder of the creatd project
+  - Copy the folder "DerivedDataCache" from the downloaded Unreal World (e.g. Landscape Mountains) to the "Content" folder of the creatd project
+  - Copy the content of the "DefaultEngine.ini" file from the "Config" folder of the downloaded Unreal World (e.g. Landscape Mountains) to same file of the new Unreal project. Only add new content but do not overwrite the existing content
+6. Install AirSim by opening the Developer Command Prompt for Visual Studio 2022.
+7. Change the directory to a folder that is not in the C: directory, otherwise the permissions to download the AirSim files are missing and Visual Studio must be executed as Admin
+8. Execute the command `git clone https://github.com/Microsoft/AirSim.git`
+
+
+> **NOTE:** If the comman can not found Git, it must be installed first with the following link: [http://git-scm.com/download/win](http://git-scm.com/download/win)
+
+
+
+
 
 - Nach erfolgreichem Download der AirSim Dateien wechsel in den AirSim Ordner (cd AirSim)
 - Installation durch build.cmd. Dadurch wird ein Plugin Ordner erstellt, welcher danach ins bestehende Unreal Projekt eingefügt werden kann.
