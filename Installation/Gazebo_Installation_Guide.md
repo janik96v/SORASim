@@ -5,205 +5,124 @@ This documentation is intended as a additional material to the instructions from
 
 1. Install AirSim on Linux to build the necessary dependencies to communicate with the Windows host in a later step. Therefore, follow the instructions in this [section](https://github.com/janik96v/SORASim/blob/main/Installation/AirSim_Installation_Guide.md#airsim-under-linux) of the AirSim installation guide. 
 
-
-
-
-
-
-- Danach muss AirSim für GazeboDrone installiert werden, dazu müssen gemäss Github Page die folgenden Befehle ausgeführt werden:
-
+2. Install AirSim for GazeboDrone with the following commands:
+```
 sudo apt-get install libgazebo9-dev
-./**clean**.sh
-./**setup**.sh
-
-
-
-
-./**build**.sh --**gcc**
+./clean.sh
+./setup.sh
+./build.sh --gcc
 cd GazeboDrone
 mkdir build && cd build
-cmake -DCMAKE\_C\_COMPILER=gcc-8 -DCMAKE\_CXX\_COMPILER=g++-8 ..
-
+cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 .. 
 make
+```
 
-Wenn der ./build.sh Befehl aufgrund des fehlenden Compilers abgebrochen wird mit dem nachfolgenden Befehl den nötigen Compiler installieren:
+>**NOTE:** If  `./build.sh` fails the necessary compilers could be missing. Install them with `sudo apt-get install gcc-8 g++-8``
 
-sudo apt-get install gcc-8 g++-8
+3. In order to ensure no issues due to previous installed versions of PX4, delete the existing folders containing PX4 and make a clean install of PX4 Autopilot. Use the following commands and reboot the system afterwards:
 
-
-
-- Im Anschluss PX4 auf Ubuntu klonen und die folgenden Befehle nutzen
-
+```
 mkdir -p PX4
-
 cd PX4
-
 git clone https://github.com/PX4/PX4-Autopilot.git --recursive
-
-- PX4 mit folgendem Befehl builden und System neustarten:
-
 bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
+```
 
-- Falls der Fehler *“Failed building wheel for pillow”* auftritt die folgenden Befehle ausführen um die fehlenden Packages manuell zu installieren:
-
+>**NOTE:** If the error *Failed building wheel for pillow* occurs, execute the commands below to install the missing packages manually:
+```
 sudo apt-get install libjpeg-dev zlib1g-dev
-
 pip3 install Pillow
-
-Ebenfalls kann der nachfolgende Code versucht werden, falls es immer noch nicht funktioniert.
-
 sudo pip install -U setuptools
+```
+
+4. Start PX4 and Gazebo with `make px4\_sitl gazebo`.
+
+        - If you get an error that the compiler or the path to the compiler is not found, execute the commands `sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 20` and `sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 20`
+        - If, after a successful build of PX4, the flight controller is waiting on the TCP port and does not connect to Gazebo (Gazebo will not boot), quit PX4 with CTRL+C and run the command `sudo apt upgrade libignition-math2`. After a succesful upgrade delete the actual PX4 build and rebuild it with `make clean` and `make px4\_sitl gazebo`.
 
 
-- Mit dem nachfolgenden Befehl PX4 und Gazebo starten:
+4. PX4 should now connect to Gazebo and once Gazebo is open, the functionality of both systems can be tested by entering a takeoff and land command in the terminal, where PX4 is running.
+```
+commander takeoff
+commander land
+```
 
-make px4\_sitl gazebo
+5. If the test was successful so far, continue with the documentatino to connect Gazebo / PX4 with AirSim on the Windows host.Therefore, change the directory to `/AirSim/GazeboDrone/src` and open the file `main.cpp` with a text editor. Add the IP-address of the host machine in line 42: `msr::airlib::MultirotorRpcLibClient client("Host IP Address");`
 
-Falls ein Fehler ausgegeben wird, dass der Compiler beziehungsweise der Pfad zum Compiler nicht erkannt wird, dann die folgenden Befehle ausführen:
-
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 20
-
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 20
-
-- Falls nach einem erfolgreichen make Befehl beim Warten auf den TCP Port nicht mit Gazebo verbunden wird und die Simulation nicht startet, diese beenden und folgenden Befehl ausführen. 
-  sudo apt upgrade libignition-math2
-
-Danach mit den folgen zwei Befehlen PX4 nochmals neu ausführen.
-
-make clean
-
-make px4\_sitl gazebo
-
-- PX4 sollte sich nun mit Gazebo verbinden und sobald Gazebo geöffnet ist, kann im PX4 Terminal mit commander takeoff und commander land die Funktionalität von beiden Systemen getestet werden.
-- Wenn der Test bis jetzt erfolgreich war, kann die Verbindung zur AirSim Library hergestellt werden. Dafür das Verzeichnis /AirSim/GazeboDrone/src öffnen und die Datei main.cpp mit einem Text Editor öffnen. Linie 42 mit der IP Addresse des Host Computers ergänzen:
-
-Linie 42/ msr::airlib::MultirotorRpcLibClient client("Host IP Address");
-
-- Um die Host IP Addresse aufzurufen eine Powershell öffnen und ipconfig ausführen. Die unten aufgeführte Ausgabe enthält die IP Addresse in gelb.
-
-*Windows-IP-Konfiguration*
+>**NOTE:** More information on how to find the IP-address of the host machine see [section](https://github.com/janik96v/SORASim/blob/main/Installation/PX4_SITL_Installation_Guide.md#installation-of-px4-sitl-using-wsl) step 5.
 
 
-*Ethernet-Adapter Ethernet:*
+6. After adding the IP-address of the host machine rebuild AirSim with the following commands:
 
-`   `*Medienstatus. . . . . . . . . . . : Medium getrennt*
-
-`   `*Verbindungsspezifisches DNS-Suffix: home*
-
-*Ethernet-Adapter VirtualBox Host-Only Network #2:*
-
-`  `*Verbindungsspezifisches DNS-Suffix:*
-
-`   `*Verbindungslokale IPv6-Adresse  . : fe80::549f:f8df:9ed0:a14c%19*
-
-`   `*IPv4-Adresse  . . . . . . . . . . : 192.168.208.1*
-
-`   `*Subnetzmaske  . . . . . . . . . . : 255.255.255.0*
-
-`   `*Standardgateway . . . . . . . . . :*
-
-- AirSim muss nun erneut gebaut werden dazu die folgenden Befehle ausführen:
-
-./**clean**.sh
-./**setup**.sh
-
-./**build**.sh **–gcc**
-
+```
+./clean.sh
+./setup.sh
+./build.sh –gcc
 cd GazeboDrone/build
-cmake -DCMAKE\_C\_COMPILER=gcc-8 -DCMAKE\_CXX\_COMPILER=g++-8 ..
-
+cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
 make
+```
 
-- Um die Interne Physik von AirSim (FastPhysics) durch die von Gazebo zu ersetzen muss das settings.json File wie folgt angepasst werden:
+7. To change the internal physic engine of AirSim (FastPhysics) and all the sensor models from AirSim to Gazebo make the following changes to the *settings.json* of AirSim:
 
+```
 "SettingsVersion": 1.2,
+  "SimMode": "Multirotor",
+  "ClockType": "SteppableClock",
+  **"PhysicsEngineName": "ExternalPhysicsEngine"**,
+  "Vehicles": {
+    "PX4": {
+      "VehicleType": "PX4Multirotor",
 
-`  `"SimMode": "Multirotor",
+```
 
-`  `"ClockType": "SteppableClock",
+>**NOTE:** Leave the rest of *settings.json* file unchanged and change only the above lines. Actually only the *PhysicsEngineName* parameter.
 
-`  `"PhysicsEngineName": "ExternalPhysicsEngine",
+8. In order for PX4 to communicate with the Windows Host (AirSim) and the ground control station (QGroundControl) on the same time, activate Mavlink Broadcast. Change the folder to `PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix` and open the file `px4-rc.mavlink`. The file will contain the following lines of code. Change the bold part from `-m` to `-p`. After the changes Mavlink is now broadcasting from the PX4 controller to the appropriate UDP ports on the host, where other software as AirSim and QGroundControl will listen for commands.
 
-`  `"Vehicles": {
+```
+#!/bin/sh
+# shellcheck disable=SC2154
 
-`    `"PX4": {
+udp_offboard_port_local=$((14580+px4_instance))
+udp_offboard_port_remote=$((14540+px4_instance))
+[ $px4_instance -gt 9 ] && udp_offboard_port_remote=14549 # use the same ports for more than 10 instances to avoid port overlaps
+udp_onboard_payload_port_local=$((14280+px4_instance))
+udp_onboard_payload_port_remote=$((14030+px4_instance))
+udp_onboard_gimbal_port_local=$((13030+px4_instance))
+udp_onboard_gimbal_port_remote=$((13280+px4_instance))
+udp_gcs_port_local=$((18570+px4_instance))
 
-`      `"VehicleType": "PX4Multirotor",
+# GCS link
+mavlink start -x -u $udp_gcs_port_local -r 4000000 -f **-p**
+mavlink stream -r 50 -s POSITION_TARGET_LOCAL_NED -u $udp_gcs_port_local
+mavlink stream -r 50 -s LOCAL_POSITION_NED -u $udp_gcs_port_local
+mavlink stream -r 50 -s GLOBAL_POSITION_INT -u $udp_gcs_port_local
+mavlink stream -r 50 -s ATTITUDE -u $udp_gcs_port_local
+mavlink stream -r 50 -s ATTITUDE_QUATERNION -u $udp_gcs_port_local
+mavlink stream -r 50 -s ATTITUDE_TARGET -u $udp_gcs_port_local
+mavlink stream -r 50 -s SERVO_OUTPUT_RAW_0 -u $udp_gcs_port_local
+mavlink stream -r 20 -s RC_CHANNELS -u $udp_gcs_port_local
+mavlink stream -r 10 -s OPTICAL_FLOW_RAD -u $udp_gcs_port_local
 
-……
+# API/Offboard link
+mavlink start -x -u $udp_offboard_port_local -r 4000000 -f **-p** onboard -o $udp_offboard_port_remote
 
-Der Rest des settings.json File kann belassen werden wie es ist. 
+# Onboard link to camera
+mavlink start -x -u $udp_onboard_payload_port_local -r 4000 -f **-p** onboard -o $udp_onboard_payload_port_remote
 
-- Damit nun PX4 mit Windows Host und der darin installierten GCS kommuniziert muss Mavlink Broadcast aktiviert werden. Dazu im PX4-Autopilot Ordner die Datei px4-rc.mavlink öffnen (zu finden unter: PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix
+# Onboard link to gimbal
+mavlink start -x -u $udp_onboard_gimbal_port_local -r 400000 **-p** gimbal -o $udp_onboard_gimbal_port_remote
+```
 
-Die Datei enthält die folgenden Befehle. Die gelb hinterlegten Befehle von -m auf -p ändern.
 
-*#!/bin/sh*
+9. The simulation can finally be started again with `make px4\_sitl gazebo` in the director `/PX4/PX4-Autopilot` and with `./GazeboDrone` in `/AirSim/GazeboDrone/build`. Both happens on the Linux side. 
 
-*# shellcheck disable=SC2154*
+10. Start the Unreal Simulation on the Windows host and open QGroundControl. The ./GazeboDrone script should now connect to AirSim on the Windows host and forward the calculated positions from the Gazebo Simulator. QGroundControl should now connect automatically via UDP broadcast from PX4. The AirSim Pyhton API can still be used to retrieve sensor data from the Unreal simulation. However, the AirSim Pyhton API no longer works to control the UAV. This can now be done through MAVSDK. To do this, connect MAVSDK to the Windows host via UDP port 14540. For more information, see the instructions for installing MAVSDK. In the PX4 controller, there is no need to create an additional MAVLink connection for the MAVSDK API, as the AirSim Pyhton API no longer accesses the flight controller.
 
-*udp\_offboard\_port\_local=$((14580+px4\_instance))*
 
-*udp\_offboard\_port\_remote=$((14540+px4\_instance))*
 
-*[ $px4\_instance -gt 9 ] && udp\_offboard\_port\_remote=14549 # use the same ports for more than 10 instances to avoid port overlaps*
-
-*udp\_onboard\_payload\_port\_local=$((14280+px4\_instance))*
-
-*udp\_onboard\_payload\_port\_remote=$((14030+px4\_instance))*
-
-*udp\_onboard\_gimbal\_port\_local=$((13030+px4\_instance))*
-
-*udp\_onboard\_gimbal\_port\_remote=$((13280+px4\_instance))*
-
-*udp\_gcs\_port\_local=$((18570+px4\_instance))*
-
-*# GCS link*
-
-*mavlink start -x -u $udp\_gcs\_port\_local -r 4000000 -f -p*
-
-*mavlink stream -r 50 -s POSITION\_TARGET\_LOCAL\_NED -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s LOCAL\_POSITION\_NED -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s GLOBAL\_POSITION\_INT -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s ATTITUDE -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s ATTITUDE\_QUATERNION -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s ATTITUDE\_TARGET -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 50 -s SERVO\_OUTPUT\_RAW\_0 -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 20 -s RC\_CHANNELS -u $udp\_gcs\_port\_local*
-
-*mavlink stream -r 10 -s OPTICAL\_FLOW\_RAD -u $udp\_gcs\_port\_local*
-
-*# API/Offboard link*
-
-*mavlink start -x -u $udp\_offboard\_port\_local -r 4000000 -f -p onboard -o $udp\_offboard\_port\_remote*
-
-*# Onboard link to camera*
-
-*mavlink start -x -u $udp\_onboard\_payload\_port\_local -r 4000 -f -p onboard -o $udp\_onboard\_payload\_port\_remote*
-
-*# Onboard link to gimbal*
-
-*mavlink start -x -u $udp\_onboard\_gimbal\_port\_local -r 400000 -p gimbal -o $udp\_onboard\_gimbal\_port\_remote*
-
-Mit den gemachten Änderungen wird mavlink vom PX4 Kontroller nun die entsprechenden UDP Ports gebroadcasted. Der Windows Host kann nun auf den entsprechenden UDP Ports die Signale abhören und für Befehle empfangen.
-
-- Die Simulation kann nun gestarten werden im dem der Befehl 
-
-make px4\_sitl gazebo
-
-ausgeführt wird und im Ordner /AirSim/GazeboDrone/build das Skript mit 
-
-./GazeboDrone
-
-gestartet wird. Auf dem Windows Host die Unreal Simulation starten und QGroundControl öffnen. Das ./GazeboDrone Skript sollte sich nun mit AirSim auf dem Windows Host verbinden und die berechneten Positionen vom Gazebo Simulator weiterleiten. QGroundControl sollte sich nun automatisch über UDP Broadcast von PX4 verbinden. Über die AirSim Pyhton API können weiterhin Sensordaten von der Unreal Simulation abgerufen werden. Die AirSim Pyhton API funktioniert aber nicht mehr um die Drohne zu steuern. Dies kann nun durch MAVSDK geschehen. Dabei MAVSDK auf dem Windows Host über den UDP Port 14540 verbinden. Mehr Infos dazu siehe Anleitung zur Installation von MAVSDK. Im PX4 Kontroller muss keine zusätzliche MAVLink Verbindung für die MAVSDK API erstellt werden, da die AirSim Pyhton API nicht mehr auf den Flight Controller zugreift. 
-
+ 
 
 **WICHTIG**
 
