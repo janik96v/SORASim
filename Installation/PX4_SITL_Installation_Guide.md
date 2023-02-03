@@ -89,6 +89,8 @@ Standardgateway . . . . . . . . . :
 
 10. Start the simulator through the Unreal Editor and execute the PX4 autopilot in Linux with the command `make px4\_sitl\_default none\_iris`
 
+
+## Troubleshooting if AirSim and PX4 won't connect
 >**NOTE:** AirSim and PX4 should be able to communicate with your antivirus software activated. If your antivirus software due to some reasons does not allow a proper communication between both parts, switch it of temporarely. 
 
 - The connection between PX4 and AirSim was succesfull when PX4 writes the output below in the terminal.
@@ -127,7 +129,7 @@ else
 - If the latest PX4 version does not connect to AirSim or no GPS fix is found after successful connection, downgrade to the older PX4 version (v1.12.0). Therefore change the director in Linux to `/PX4/PX4-Autopilot` and enter the command `git checkout v1.12.0`.
 
 
-## Some usful Information
+## Some usful additional information
 
 ### PX4 Log File Storage Folder
 
