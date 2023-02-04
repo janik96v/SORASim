@@ -118,41 +118,82 @@ mavlink start -x -u $udp_onboard_gimbal_port_local -r 400000 **-p** gimbal -o $u
 
 9. The simulation can finally be started again with `make px4\_sitl gazebo` in the director `/PX4/PX4-Autopilot` and with `./GazeboDrone` in `/AirSim/GazeboDrone/build`. Both happens on the Linux side. 
 
-10. Start the Unreal Simulation on the Windows host and open QGroundControl. The ./GazeboDrone script should now connect to AirSim on the Windows host and forward the calculated positions from the Gazebo Simulator. QGroundControl should now connect automatically via UDP broadcast from PX4. The AirSim Pyhton API can still be used to retrieve sensor data from the Unreal simulation. However, the AirSim Pyhton API no longer works to control the UAV. This can now be done through MAVSDK. To do this, connect MAVSDK to the Windows host via UDP port 14540. For more information, see the instructions for installing MAVSDK. In the PX4 controller, there is no need to create an additional MAVLink connection for the MAVSDK API, as the AirSim Pyhton API no longer accesses the flight controller.
+10. On Windows start the Unreal Simulation and open QGroundControl. The `./GazeboDrone` script should now connect to AirSim on the Windows host and forward the calculated positions from the Gazebo Simulator. QGroundControl should connect automatically via UDP broadcast from PX4. The AirSim Pyhton API can still be used to retrieve sensor data from the Unreal simulation. However, the AirSim Pyhton API no longer works to control the UAV. This can now be done through MAVSDK. To do this, connect MAVSDK to the Windows host via UDP port 14540. For more information, see the instructions for installing MAVSDK. In the PX4 controller, there is no need to create an additional MAVLink connection/broadcast for the MAVSDK API, as the AirSim Pyhton API no longer accesses the flight controller. Thus, the AirSim Python API can be used to talk via MAVSDK to PX4.
 
 
 
  
 
-**WICHTIG**
+## Some useful information
 
-- Weiter nützliche Informationen und Einstellung sind unter <https://docs.px4.io/v1.12/en/simulation/gazebo.html#headless> zu finden.
-- Um Parameter standardmässig beim Start von PX4 definieren können diese im File «px4-rc.params unter *PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix* angehängt werden. Für Offboard Controll werden die folgenden Parameter empfohlen 
+- To define PX4 specific UAV parameters by default when starting PX4, add them in the file `px4-rc.params` in the folder  `PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix`. The following parameters are recommended for offboard control:
 
-*#!/bin/sh*
+```
+#!/bin/sh
+# shellcheck disable=SC2154
 
-*# shellcheck disable=SC2154*
+#param set-default MAV_SYS_ID $((px4_instance+1))
+#param set-default IMU_INTEG_RATE 250
 
-*#param set-default MAV\_SYS\_ID $((px4\_instance+1))*
+# Set Parameter for Offboard Control without Remote Controller
+param set-default NAV_DLL_ACT 0
+param set-default NAV_RCL_ACT 0
+param set-default COM_OF_LOSS_T 30
+param set-default COM_OBL_ACT 1
+param set-default COM_RCL_EXCEPT 
+```
 
-*#param set-default IMU\_INTEG\_RATE 250*
+>**NOTE:** All PX4 parameters are listed and explained on their [website](https://docs.px4.io/v1.12/en/advanced_config/parameter_reference.html)
 
-*# Set Parameter for Offboard Control without Remote Controller*
 
-*param set-default NAV\_DLL\_ACT 0*
+- To set the GPS coordinates of the take-off location, open the following folder `~/PX4/PX4-Autopilot/Tools/sitl_gazebo/worlds ` . The folder contains all the predefined Gazebo world files. By default, the *empty.world* file is used. The content of the file is included below and the GPS coordinates to change are in bold. After the changes, the new take-off location should be visible in QGroundControl when the simulation is started. 
 
-*param set-default NAV\_RCL\_ACT 0*
+```
+<?xml version="1.0" ?>
+<sdf version="1.5">
+<world name="default">
+<!-- A global light source -->
+<include>
+<uri>model://sun</uri>
+</include>
+<!-- A ground plane -->
+<include>
+<uri>model://ground_plane</uri>
+</include>
+<include>
+<uri>model://asphalt_plane</uri>
+</include>
+**<spherical_coordinates>**
+**<surface_model>EARTH_WGS84</surface_model>**
+**<latitude_deg>47.130633650952</latitude_deg>**
+**<longitude_deg>7.24060672327239</longitude_deg>**
+**<elevation>458.0</elevation>**
+**</spherical_coordinates>**
+<physics name='default_physics' default='0' type='ode'>
+<gravity>0 0 -9.8066</gravity>
+<ode>
+<solver>
+<type>quick</type>
+<iters>10</iters>
+<sor>1.3</sor>
+<use_dynamic_moi_rescaling>0</use_dynamic_moi_rescaling>
+</solver>
+<constraints>
+<cfm>0</cfm>
+<erp>0.2</erp>
+<contact_max_correcting_vel>100</contact_max_correcting_vel>
+<contact_surface_layer>0.001</contact_surface_layer>
+</constraints>
+</ode>
+<max_step_size>0.004</max_step_size>
+<real_time_factor>1</real_time_factor>
+<real_time_update_rate>250</real_time_update_rate>
+<magnetic_field>6.0e-6 2.3e-5 -4.2e-5</magnetic_field>
+</physics>
+</world>
+</sdf>
 
-*param set-default COM\_OF\_LOSS\_T 30*
-
-*param set-default COM\_OBL\_ACT 1*
-
-*param set-default COM\_RCL\_EXCEPT 4*
-
-Für mehr Info und eine Erklärung zu den definierten Parameter kann hier gefunden werden <https://docs.px4.io/v1.12/en/advanced_config/parameter_reference.html> 
-
-- Um die GPS Koordinaten des Startpunktes zu setzen den folgenden Ordner öffnen *~/PX4/PX4-Autopilot/Tools/sitl\_gazebo/worlds* . Darin enthalten sind alle world Files von Gazebo. Standardmässig wird das *empty.world* File verwendet. Um darin die GPS Koordinaten festzulegen das File mit den Koordinaten gemäss gelb hinterlegtem Beispiel anpassen:
-
+```
 <?xml version="1.0" ?>
 
 <sdf version="1.5">
@@ -239,4 +280,4 @@ Für mehr Info und eine Erklärung zu den definierten Parameter kann hier gefund
 
 </sdf>
 
-Anschliessenden sollte der neu gewählte Startpunkt via Ground Controll Station sichtbar sein.
+
