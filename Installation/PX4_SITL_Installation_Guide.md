@@ -108,7 +108,7 @@ INFO [simulator] Simulator connected on TCP port 4560.
 
 - If AirSim still does not connect to PX4 SITL firmware check if the firewall blocks Unreal Launcher/Unreal Editior. Open the same settings as in step 9 (*Windows Defender Firewall with Advanced Security*). All the incoming rules in Windows Defender Firewall should be green (see image below). If not allow them. 
 
-![Windows Defender Firewall necessary Inbound Rules](./firewall_inbound_rules.png)
+![Windows Defender Firewall necessary Inbound Rules](./pictures/firewall_inbound_rules.png)
 
 
 - If the PX4 controller still does not connect to AirSim, add the following code to the file located under `PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix/rcS`. However, it was no longer necessary for the PX4 version v1.13.0 used in the underlying project.
