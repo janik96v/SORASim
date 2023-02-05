@@ -1,3 +1,7 @@
+# SORASim Installation Guide
+
+The following documentation contains information about the installation of all parts of the UAV Simulator. This includes AirSim, PX4, Gazebo, MAVSDK, and QGroundControl. The following information is to be understood as additional documentation to the already existing installation and operating instructions on the websites of the manufacturers and developers. The table of content below provides an overview of the contents of the documentation. 
+
 # Table of Content
 
 - [AirSim Installation](#airsim-installation-guide-windows)
@@ -289,7 +293,7 @@ In order for the VM to communicate with the Windows host machine, a host-only ne
 
 This documentation is intended as a additional material to the instructions from [AirSim's documentation](https://microsoft.github.io/AirSim/gazebo_drone/) and from the [PX4 manual](https://docs.px4.io/main/en/simulation/gazebo.html). After a successful installation Gazebo and PX4 on Linux should be linked to AirSim and Unreal Environment on the Windows host. You can use the following documentation when AirSim on Windows and PX4 on Linux are already installed and tested successfully.
 
-1. Install AirSim on Linux to build the necessary dependencies to communicate with the Windows host in a later step. Therefore, follow the instructions in this [section](https://github.com/janik96v/SORASim/blob/main/Installation/AirSim_Installation_Guide.md#airsim-under-linux) of the AirSim installation guide. 
+1. Install AirSim on Linux to build the necessary dependencies to communicate with the Windows host in a later step. Therefore, follow the instructions in this [section](#airsim-on-linux) of the AirSim installation guide. 
 
 2. Install AirSim for GazeboDrone with the following commands:
 ```
@@ -335,7 +339,7 @@ commander land
 
 5. If the test was successful so far, continue with the documentatino to connect Gazebo / PX4 with AirSim on the Windows host.Therefore, change the directory to `/AirSim/GazeboDrone/src` and open the file `main.cpp` with a text editor. Add the IP-address of the host machine in line 42: `msr::airlib::MultirotorRpcLibClient client("Host IP Address");`
 
->**NOTE:** More information on how to find the IP-address of the host machine see [section](https://github.com/janik96v/SORASim/blob/main/Installation/PX4_SITL_Installation_Guide.md#installation-of-px4-sitl-using-wsl) step 5.
+>**NOTE:** More information on how to find the IP-address of the host machine see [section](#installation-of-px4-sitl-using-wsl) step 5.
 
 
 6. After adding the IP-address of the host machine rebuild AirSim with the following commands:
@@ -494,7 +498,7 @@ pip3 install aioconsole
 
 4. If MAVSDK runs on a Windows host, the appropriate `mavsdk_server.exe` must be downloaded from their [GitHub page](https://github.com/mavlink/MAVSDK/releases/tag/v1.4.2) under the *Releases* tab. If MAVSDK is used on Linux, the `mavsdk_server.exe` is usually installed with it. The *mavsdk_server* must be placed in the folder `C:\Users\username\anaconda3\envs\airsimpy2\Lib\site-packages\mavsdk\bin` (location of the MAVSDK Python package)
 
-5. In order for the previously installed *mavsdk_server* on the Windows host to be able to communicate with the PX4 SITL on the virtual machine, Mavlink UDP Broadcast must be activated on PX4. However, it should be already activated when [section](https://github.com/janik96v/SORASim/blob/main/Installation/Gazebo_Installation_Guide.md#gazebo-installatin-guide) (step 8) was followed.
+5. In order for the previously installed *mavsdk_server* on the Windows host to be able to communicate with the PX4 SITL on the virtual machine, Mavlink UDP Broadcast must be activated on PX4. However, it should be already activated when [section](#gazebo-installation) (step 8) was followed.
 
 6. Add a second Mavlink broadcast for offboard controls to the file `px4-rc.mavlink` which is located under `PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix`. The second broadcast instance allows to communicate to PX4 with offboard controls from either the AirSim Python API or via MAVSDK library. The content of the file is added below and the necessary changes are made in bold.
 
@@ -537,7 +541,7 @@ mavlink start -x -u $udp_onboard_gimbal_port_local -r 400000 -p gimbal -o $udp_o
 
 ```
 
->**NOTE:** The changes will open a new local and remote port when PX4 is started. On the Windows host, the corresponding remote port (port 14541) must be opened in the firewall. For more information on how to open ports see [section](https://github.com/janik96v/SORASim/blob/main/Installation/PX4_SITL_Installation_Guide.md#installation-of-px4-sitl-using-wsl) or watch the [video](https://www.youtube.com/watch?v=xMGPyZtdP00&ab_channel=RobertMcMillen).
+>**NOTE:** The changes will open a new local and remote port when PX4 is started. On the Windows host, the corresponding remote port (port 14541) must be opened in the firewall. For more information on how to open ports see [section](#installation-of-px4-sitl-using-wsl) or watch the [video](https://www.youtube.com/watch?v=xMGPyZtdP00&ab_channel=RobertMcMillen).
 
 
 7. To activate the MAVSDK - Python interface, start *mavsdk_server* manually if the executable is not copied to the directory of the MAVSDK-Python package as described in step 4. To manually start the *mavsdk_server* go to the corresponding directory and execute *mavsdk_server* with the command `Mavsdk_server udp://:14541`. The UDP port number must be identical with the one added to the broadcast file in step 6. If the *mavsdk_server* is added to the directory of the MAVSDK-Python package, *mavsdk_server* can be started directly via the Python script. Therefore, enter the UDP port in the following command `await drone.connect(system_address='udp://:14541')`. If the server is started manually, the command `await drone.connect()` can be left empty.
