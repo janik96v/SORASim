@@ -1,7 +1,8 @@
 # Table of Content
 
-- [AirSim Installation Guide (Windows)](#airsim-installation-guide-windows)
-  * [Sub-heading](#sub-heading)
+- [AirSim Installation](#airsim-installation-guide-windows)
+  * [AirSim on Windows](#airsim-on-windows)
+  * [AirSim on Linux](#airsim-under-linux)
     + [Sub-sub-heading](#sub-sub-heading)
 - [Heading](#heading-1)
   * [Sub-heading](#sub-heading-1)
@@ -10,10 +11,11 @@
   * [Sub-heading](#sub-heading-2)
     + [Sub-sub-heading](#sub-sub-heading-2)
 
-
-# AirSim Installation Guide (Windows)
+# AirSim Installation
 
 The installation guide is intended to add information to AirSim's [official documenetation](https://microsoft.github.io/AirSim/build_windows/) and the [installation video](https://www.youtube.com/watch?v=1oY8Qu5maQQ&ab_channel=ChrisLovett) of Chris Lovett. This file contains certain details that were not included in either of the other two sources. 
+
+## AirSim on Windows
 
 1. Download Unreal Launcher and install Unreal Engine \>= 4.25
 2. Install Microsoft Visual Studio 2019 and 2022 and the following packages:
@@ -62,7 +64,7 @@ The installation guide is intended to add information to AirSim's [official docu
 17. In the Unreal Editor go to `Edit>Editor Preferences` and serach for *CPU* and disable *Use Less CPU when in Background*
 
 
-## AirSim under Linux
+## AirSim on Linux
 > **NOTE:** If AirSim is installed in Linux (Ubuntu 18.04) follow the steps in this section. Use it as additional information to the [AirSim Github page](https://microsoft.github.io/AirSim/build_linux/). Instructions on how to build the Unreal environment is also available under the same webpage. 
 
 ```
