@@ -1,6 +1,6 @@
 # Table of Content
 
-- [AirSim Installation Guide (Windows)](# AirSim Installation Guide (Windows))
+- [AirSim-Installation-Guide-(Windows)](#-AirSim-Installation-Guide-(Windows))
   * [Sub-heading](#sub-heading)
     + [Sub-sub-heading](#sub-sub-heading)
 - [Heading](#heading-1)
