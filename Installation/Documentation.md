@@ -22,7 +22,7 @@ The following documentation contains information about the installation of all p
 - [MAVSDK-Python Installation](#mavsdk-python-installation)
 - [QGroundControl Installation](#qgroundcontrol-installation)
 - [Simulator Automation Requirements (SSH Setup)](#simulator-automation-requirements-ssh-setup)
-- [PX4 & Gazebo Code Dokumentation](#px4--gazebo-code-dokumentation)
+- [PX4 & Gazebo Code Documentation](#px4--gazebo-code-documentation)
     * [Adding new aircraft/drone model](#adding-new-aircraftdrone-model)
     * [Adding new world file](#adding-new-world-file)
 
@@ -601,7 +601,7 @@ type $env:USERPROFILE\.ssh\id_rsa.pub | ssh username@ip_address_VM "cat >> .ssh/
     - Conda virtual environments can now be activated using the same command `conda activate <venv-name>` as in Anaconda command prompt
 
 
-# PX4 & Gazebo Code Dokumentation
+# PX4 & Gazebo Code Documentation
 
 ## Adding new aircraft/drone model
 
