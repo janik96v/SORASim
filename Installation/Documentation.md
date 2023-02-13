@@ -616,5 +616,7 @@ type $env:USERPROFILE\.ssh\id_rsa.pub | ssh username@ip_address_VM "cat >> .ssh/
 
 ## Adding new world file
 
-
+1. Create a file in `/PX4-Autopilot/Tools/sitl_gazebo/wolds` for the new world (my_world.world)
+2. If you want to adjust a world file copy the content of an already existing world file to it.
+3. Add the world name to `/platforms/posix/cmake/sitl_target.cmake` under the command line `set(worlds …)`
 
