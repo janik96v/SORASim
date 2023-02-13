@@ -7,11 +7,11 @@ The high-fidelity UAV simulation is based on open-source software and uses the G
 
 ## Repository Structure
 
-- **Experiment**: Contains all the scripts for flying the mission and analysing the results of the contingency volume and ground risk buffer validation
+- **Experiment**: Contains all the scripts for flying the mission and analysing the results of the contingency volume and ground risk buffer validation. It also includes the world files for the Gazebo simulator in order to simulate the wind direction and wind speeds correctly in all the scenarios. 
 - **Flight_Plans**: Includes the waypoints of the UAV mission for the use case as well as the geofence for the contingency volume and ground risk buffer
 - **Installation**: Includes documentation on how to install and change parts of the simulator
 - **Scripts**: Contains the offboard mission script to fly the UAV operation according to the SORA and its permit to fly
-- **Simulation_Verification**: Includes the offboard mission script, the flight logs from flight test and simulation, the changes to the UAV model to mimic the UAV from the flight test and the analysis of the results
+- **Simulation_Verification**: Includes the offboard mission script, the flight logs from flight test and simulation, the changes to the UAV model to mimic the UAV from the flight test, the world file for the Gazebo simulator and the analysis of the results. 
 
 
 ## Further Material / Documentation / Links
