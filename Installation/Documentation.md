@@ -366,7 +366,7 @@ make
 
 ```
 
->**NOTE:** Leave the rest of *settings.json* file unchanged and change only the above lines. Actually only the *PhysicsEngineName* parameter.
+>**NOTE:** Leave the rest of *settings.json* file unchanged and change only the above lines. Actually only the *PhysicsEngineName* parameter. The complete file can be found [here](./AirSim_Settings/settings_ExternalPhysicsEngine.json). In order to use the file with AirSim's default settings rename it to *settings.json* and place it in the same folder as the previous one.
 
 8. In order for PX4 to communicate with the Windows Host (AirSim) and the ground control station (QGroundControl) on the same time, activate Mavlink Broadcast. Change the folder to `PX4/PX4-Autopilot/ROMFS/px4fmu\_common/init.d-posix` and open the file `px4-rc.mavlink`. The file will contain the following lines of code. Change the bold part from `-m` to `-p`. After the changes Mavlink is now broadcasting from the PX4 controller to the appropriate UDP ports on the host, where other software as AirSim and QGroundControl will listen for commands.
 
