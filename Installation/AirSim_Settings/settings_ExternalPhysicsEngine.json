@@ -1,0 +1,72 @@
+{
+  "SettingsVersion": 1.2,
+  "SimMode": "Multirotor",
+  "ClockType": "SteppableClock",
+  "PhysicsEngineName": "ExternalPhysicsEngine",
+  "Vehicles": {
+    "PX4": {
+      "VehicleType": "PX4Multirotor",
+      "UseSerial": false,
+      "LockStep": true,
+      "UseTcp": true,
+      "TcpPort": 4560,
+      "ControlIp": "remote",
+      "ControlPortLocal": 14540,
+      "ControlPortRemote": 14580,
+      "LocalHostIp": "192.16.118.1",
+      "Recording": {
+        "RecordOnMove": false,
+        "RecordInterval": 0.05,
+        "Enabled": false,
+        "Cameras": []
+      },
+      "Sensors": {
+        "Barometer": {
+          "SensorType": 1,
+          "Enabled": true,
+          "PressureFactorSigma": 0.0001825
+        },
+        "Lidar": {
+          "SensorType": 6,
+          "Enabled": true,
+          "NumberOfChannels": 16,
+          "RotationsPerSecond": 10,
+          "PointsPerSecond": 100000,
+          "X": 0,
+          "Y": 0,
+          "Z": -1,
+          "Roll": 0,
+          "Pitch": 0,
+          "Yaw": 0,
+          "VerticalFOVUpper": -15,
+          "VerticalFOVLower": -25,
+          "HorizontalFOVStart": -20,
+          "HorizontalFOVEnd": 20,
+          "DrawDebugPoints": true,
+          "DataFrame": "SensorLocalFrame"
+        }
+      },
+      "Parameters": {
+        "COM_OBL_ACT": 1,
+        "COM_OF_LOSS_T": 30,
+        "LPE_LAT": 47.13009575715322,
+        "LPE_LON": 7.240250490803972,
+        "NAV_DLL_ACT": 0,
+        "NAV_RCL_ACT": 0,
+        "MC_PITCHRATE_MAX": 300,
+        "MC_YAWRATE_MAX": 100,
+        "MPC_MAN_TILT_MAX": 30,
+        "MPC_TILTMAX_AIR": 30,
+        "MPC_XY_CRUISE": 23,
+        "MPC_XY_VEL_ALL": 23,
+        "MPC_Z_VEL_MAX_DN": 5,
+        "MPC_Z_VEL_MAX_UP": 6
+      }
+    }
+  },
+  "OriginGeopoint": {
+    "Latitude": 47.13009575715322,
+    "Longitude": 7.240250490803972,
+    "Altitude": 458
+  }
+}
