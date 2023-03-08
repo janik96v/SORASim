@@ -329,7 +329,7 @@ sudo pip install -U setuptools
 
 If you get an error that the compiler or the path to the compiler is not found, execute the commands `sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 20` and `sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 20`
 
-If, after a successful build of PX4, the flight controller is waiting on the TCP port and does not connect to Gazebo (Gazebo will not boot), quit PX4 with CTRL+C and run the command `sudo apt upgrade libignition-math2`. After a succesful upgrade delete the actual PX4 build and rebuild it with `make clean` and `make px4\_sitl gazebo`.
+If, after a successful build of PX4, the flight controller is waiting on the TCP port and does not connect to Gazebo (Gazebo will not boot), quit PX4 with CTRL+C and run the command `sudo apt upgrade libignition-math2`. After a succesful upgrade delete the actual PX4 build and rebuild it with `make clean` and `make px4_sitl gazebo`.
 
 
 5. PX4 should now connect to Gazebo and once Gazebo is open, the functionality of both systems can be tested by entering a takeoff and land command in the terminal, where PX4 is running.
