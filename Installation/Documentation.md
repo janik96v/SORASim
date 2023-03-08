@@ -291,7 +291,7 @@ In order for the VM to communicate with the Windows host machine, a host-only ne
 
 ## Gazebo Installation
 
-This documentation is intended as a additional material to the instructions from [AirSim's documentation](https://microsoft.github.io/AirSim/gazebo_drone/) and from the [PX4 manual](https://docs.px4.io/main/en/simulation/gazebo.html). After a successful installation Gazebo and PX4 on Linux should be linked to AirSim and Unreal Environment on the Windows host. You can use the following documentation when AirSim on Windows and PX4 on Linux are already installed and tested successfully.
+This documentation is intended as a additional material to the instructions from [AirSim's documentation](https://microsoft.github.io/AirSim/gazebo_drone/) and from the [PX4 manual](https://docs.px4.io/v1.12/en/simulation/gazebo.html). After a successful installation Gazebo and PX4 on Linux should be linked to AirSim and Unreal Environment on the Windows host. You can use the following documentation when AirSim on Windows and PX4 on Linux are already installed and tested successfully.
 
 1. Install AirSim on Linux to build the necessary dependencies to communicate with the Windows host in a later step. Therefore, follow the instructions in this [section](#airsim-on-linux) of the AirSim installation guide. 
 
@@ -348,7 +348,7 @@ commander land
 ```
 ./clean.sh
 ./setup.sh
-./build.sh –gcc
+./build.sh –-gcc
 cd GazeboDrone/build
 cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
 make
@@ -407,7 +407,7 @@ mavlink start -x -u $udp_onboard_gimbal_port_local -r 400000 **-p** gimbal -o $u
 ```
 
 
-10. The simulation can finally be started again with `make px4\_sitl gazebo` in the director `/PX4/PX4-Autopilot` and with `./GazeboDrone` in `/AirSim/GazeboDrone/build`. Both happens on the Linux side. 
+10. The simulation can finally be started again with `make px4_sitl gazebo` in the director `/PX4/PX4-Autopilot` and with `./GazeboDrone` in `/AirSim/GazeboDrone/build`. Both happens on the Linux side. 
 
 11. On Windows start the Unreal Simulation and open QGroundControl. The `./GazeboDrone` script should now connect to AirSim on the Windows host and forward the calculated positions from the Gazebo Simulator. QGroundControl should connect automatically via UDP broadcast from PX4. The AirSim Pyhton API can still be used to retrieve sensor data from the Unreal simulation. However, the AirSim Pyhton API no longer works to control the UAV. This can now be done through MAVSDK. To do this, connect MAVSDK to the Windows host via UDP port 14540. For more information, see the instructions for installing MAVSDK. In the PX4 controller, there is no need to create an additional MAVLink connection/broadcast for the MAVSDK API, as the AirSim Pyhton API no longer accesses the flight controller. Thus, the AirSim Python API can be used to talk via MAVSDK to PX4.
 
