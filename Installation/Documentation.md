@@ -307,7 +307,7 @@ cmake -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ..
 make
 ```
 
->**NOTE:** If  `./build.sh` fails the necessary compilers could be missing. Install them with `sudo apt-get install gcc-8 g++-8``
+>**NOTE:** If  `./build.sh` fails the necessary compilers could be missing. Install them with `sudo apt-get install gcc-8 g++-8`
 
 3. In order to ensure no issues due to previous installed versions of PX4, delete the existing folders containing PX4 and make a clean install of PX4 Autopilot. Use the following commands and reboot the system afterwards:
 
