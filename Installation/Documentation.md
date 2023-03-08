@@ -147,7 +147,7 @@ Subnetzmaske . . . . . . . . . . : 255.255.240.0
 Standardgateway . . . . . . . . . :
 ```
 
-6. Back in Linux, run `nano ~/.bashrc` and add the expression `export PX4\_SIM\_HOST\_ADDR=192.16.118.1` to the end of the document. The last digits are the IP-address of your Windows host and must be identical with the one copied in step 5.
+6. Back in Linux, run `nano ~/.bashrc` and add the expression `export PX4_SIM_HOST_ADDR=192.16.118.1` to the end of the document. The last digits are the IP-address of your Windows host and must be identical with the one copied in step 5.
 
 > **NOTE:** If `nano` is not installed yet, install it first. After installation and the changes in the previous step save the file with CTRL+X
 
